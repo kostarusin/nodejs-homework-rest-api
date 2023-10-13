@@ -12,7 +12,7 @@ router.get("/", contactsController.getAll);
 
 router.get("/:id", contactsController.getById);
 
-router.post("/", isEmptyBody, contactAddValidate, contactsController.addNew);
+router.post("/", isEmptyBody, contactAddValidate, contactsController.add);
 
 router.put(
   "/:id",

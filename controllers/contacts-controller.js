@@ -17,8 +17,7 @@ const getById = async (req, res) => {
   res.json(contactById);
 };
 
-const addNew = async (req, res) => {
-  
+const add = async (req, res) => {  
   const newContact = await contactsService.addContact(req.body);
   res.status(201).json(newContact);
 };
@@ -46,7 +45,7 @@ const deleteById = async (req, res) => {
 export default {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
-  addNew: ctrlWrapper(addNew),
+  add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
 };
