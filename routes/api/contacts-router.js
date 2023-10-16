@@ -1,6 +1,5 @@
 import express from "express";
 import contactsController from "../../controllers/contacts-controller.js";
-import { isEmptyBody } from "../../middlewares/index.js";
 import { validateBody } from "../../decorators/index.js";
 import { contactAddSchema } from "../../schemas/contacts-schemas.js";
 
@@ -12,11 +11,11 @@ router.get("/", contactsController.getAll);
 
 router.get("/:id", contactsController.getById);
 
-router.post("/", isEmptyBody, contactAddValidate, contactsController.add);
+router.post("/", contactAddValidate, contactsController.add);
 
 router.put(
   "/:id",
-  isEmptyBody,
+  
   contactAddValidate,
   contactsController.updateById
 );
