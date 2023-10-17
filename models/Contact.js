@@ -4,13 +4,13 @@ import Joi from "joi";
 
 const contactlist = ["private", "corporate"];
 
-
 const contactSchema = new Schema(
   {
     name: {
       type: String,
       required: [true, "Set name for contact"],
     },
+
     email: {
       type: String,
       required: true,
@@ -41,7 +41,6 @@ contactSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
 
 contactSchema.post("findOneAndUpdate", handleSaveError);
 
-
 export const contactAddSchema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": `"name" required field`,
@@ -58,14 +57,11 @@ export const contactAddSchema = Joi.object({
     .required(),
 });
 
-
 export const contactUpdateFavoriteSchema = Joi.object({
   favorite: Joi.boolean().required().messages({
     "any.required": `missing field favorite`,
   }),
 });
-
-
 
 const Contact = model("contact", contactSchema);
 
