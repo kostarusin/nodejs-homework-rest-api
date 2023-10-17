@@ -9,7 +9,7 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Set name for contact"],
     },
     email: {
       type: String,
@@ -60,8 +60,10 @@ export const contactAddSchema = Joi.object({
 
 
 export const contactUpdateFavoriteSchema = Joi.object({
-  favorite: Joi.boolean().required(),
-})
+  favorite: Joi.boolean().required().messages({
+    "any.required": `missing field favorite`,
+  }),
+});
 
 
 
