@@ -54,6 +54,18 @@ const getCurrent = async (req, res) => {
   res.json({ email, subscription });
 };
 
+const subscriptionUpdate = async (req, res) => {
+  const id = req.user._id;
+  const { subscription } = req.body;
+  const updatedUser = await User.findByIdAndUpdate(id, {
+    subscription,
+  });
+
+  res
+    .status(200)
+    .json({ email: updatedUser.email, subscription: updatedUser.subscription });
+};
+
 const signout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
@@ -68,4 +80,5 @@ export default {
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   signout: ctrlWrapper(signout),
+  subscriptionUpdate: ctrlWrapper(subscriptionUpdate),
 };
