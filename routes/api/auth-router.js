@@ -3,7 +3,7 @@ import authController from "../../controllers/auth-controller.js";
 
 import { validateBody } from "../../decorators/index.js";
 
-import { authenticate } from "../../middlewares/index.js";
+import { authenticate, upload } from "../../middlewares/index.js";
 
 import {
   userSignupSchema,
@@ -17,7 +17,12 @@ const userSubscriptionValidate = validateBody(userSubscriptionUpdateSchema);
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", userSignupValidate, authController.signup);
+authRouter.post(
+  "/signup",
+  upload.single("avatar"),
+  userSignupValidate,
+  authController.signup
+);
 
 authRouter.post("/signin", userSigninValidate, authController.signin);
 
@@ -30,6 +35,13 @@ authRouter.patch(
   userSubscriptionValidate,
   authenticate,
   authController.subscriptionUpdate
+);
+
+authRouter.patch(
+  "/users/avatars",
+  upload.single("avatar"),
+  authenticate,
+  authController.avatarUpdate
 );
 
 export default authRouter;
