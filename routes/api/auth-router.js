@@ -3,7 +3,7 @@ import authController from "../../controllers/auth-controller.js";
 
 import { validateBody } from "../../decorators/index.js";
 
-import { authenticate } from "../../middlewares/index.js";
+import { authenticate, upload } from "../../middlewares/index.js";
 
 import {
   userSignupSchema,
@@ -27,9 +27,17 @@ authRouter.post("/signout", authenticate, authController.signout);
 
 authRouter.patch(
   "/users",
+  upload.single("avatar"),
   userSubscriptionValidate,
   authenticate,
   authController.subscriptionUpdate
+);
+
+authRouter.patch(
+  "/users/avatars",
+  upload.single("avatar"),
+  authenticate,
+  authController.avatarUpdate
 );
 
 export default authRouter;
