@@ -17,12 +17,7 @@ const userSubscriptionValidate = validateBody(userSubscriptionUpdateSchema);
 
 const authRouter = express.Router();
 
-authRouter.post(
-  "/signup",
-  upload.single("avatar"),
-  userSignupValidate,
-  authController.signup
-);
+authRouter.post("/signup", userSignupValidate, authController.signup);
 
 authRouter.post("/signin", userSigninValidate, authController.signin);
 
@@ -32,6 +27,7 @@ authRouter.post("/signout", authenticate, authController.signout);
 
 authRouter.patch(
   "/users",
+  upload.single("avatar"),
   userSubscriptionValidate,
   authenticate,
   authController.subscriptionUpdate

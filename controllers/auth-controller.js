@@ -19,22 +19,10 @@ const avatarPath = path.resolve("public", "avatars");
 const signup = async (req, res) => {
   const { email, password } = req.body;
 
-  let avatarURL = gravatar.url(email, {
+  const avatarURL = gravatar.url(email, {
     s: "250",
     d: "retro",
   });
-
-  if (req.file) {
-    const { path: oldPath, filename } = req.file;
-
-    const image = await Jimp.read(oldPath);
-    image.resize(300, 300);
-    await image.writeAsync(oldPath);
-
-    const newPath = path.join(avatarPath, filename);
-    await fs.rename(oldPath, newPath);
-    avatarURL = path.join("public", "avatars", filename);
-  }
 
   const user = await User.findOne({ email });
 
