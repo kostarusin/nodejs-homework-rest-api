@@ -9,15 +9,21 @@ import {
   userSignupSchema,
   userSigninSchema,
   userSubscriptionUpdateSchema,
+  userEmailSchema,
 } from "../../utils/validation/authValidationScemas.js";
 
 const userSignupValidate = validateBody(userSignupSchema);
 const userSigninValidate = validateBody(userSigninSchema);
 const userSubscriptionValidate = validateBody(userSubscriptionUpdateSchema);
+const userEmailValidate = validateBody(userEmailSchema);
 
 const authRouter = express.Router();
 
 authRouter.post("/signup", userSignupValidate, authController.signup);
+
+authRouter.get("/verify/:verificationCode", authController.verify);
+
+authRouter.get("/verify", userEmailValidate, authController.resendVerifyEmail);
 
 authRouter.post("/signin", userSigninValidate, authController.signin);
 
